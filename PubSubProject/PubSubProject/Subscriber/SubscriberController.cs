@@ -15,7 +15,7 @@ namespace PubSubProject.Subscriber
         private refreshActiveTopicList _refreshTopics;
         private deletedTopic _deleteTopic;
 
-        private WebSocket ws;
+        private WebSocket webSocket;
         private bool serverClosed = false;
         private List<string> allTopics;
         private List<string> subscribedTopics;
@@ -25,9 +25,9 @@ namespace PubSubProject.Subscriber
             allTopics = new List<string>();
             subscribedTopics = new List<string>();
 
-            ws = new WebSocket("ws://" + ip + "/BrokerController");
+            webSocket = new WebSocket("ws://" + ip + "/BrokerController");
 
-            ws.OnMessage += (sender, e) =>
+            webSocket.OnMessage += (sender, e) =>
             {
                 Message message = JsonConvert.DeserializeObject<Message>(e.Data);
                 string type = message.getType();
@@ -52,7 +52,7 @@ namespace PubSubProject.Subscriber
                 }
             };
 
-            ws.Connect();
+            webSocket.Connect();
             sendClientType();
         }
 
@@ -68,7 +68,7 @@ namespace PubSubProject.Subscriber
             if (serverClosed == false)
             {
                 Message newMessage = new Message("newSubscriber");
-                ws.Send(JsonConvert.SerializeObject(newMessage));
+                webSocket.Send(JsonConvert.SerializeObject(newMessage));
             }
         }
 
@@ -78,7 +78,7 @@ namespace PubSubProject.Subscriber
             {
                 subscribedTopics.Remove(topic);
                 Message newMessage = new Message("unsubscribe", topic);
-                ws.Send(JsonConvert.SerializeObject(newMessage));
+                webSocket.Send(JsonConvert.SerializeObject(newMessage));
                 return true;
             }
             else
@@ -93,7 +93,7 @@ namespace PubSubProject.Subscriber
             {
                 subscribedTopics.Add(topic);
                 Message newMessage = new Message("subscribe", topic);
-                ws.Send(JsonConvert.SerializeObject(newMessage));
+                webSocket.Send(JsonConvert.SerializeObject(newMessage));
                 return true;
             }
             else
@@ -107,7 +107,7 @@ namespace PubSubProject.Subscriber
             // this if/else safely handles the closing of the form if the server has already been closed
             if (serverClosed == false)
             {
-                ws.Close();
+                webSocket.Close();
                 return true;
             }
             else

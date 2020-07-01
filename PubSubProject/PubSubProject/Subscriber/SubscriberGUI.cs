@@ -47,6 +47,10 @@ namespace PubSubProject.Subscriber
                     }
                 }
             }
+            else
+            {
+                MessageBox.Show("Select a topic from the active topics list.");
+            }
         }
 
         private void uxUnsubscribeButton_Click(object sender, EventArgs e)
@@ -63,6 +67,10 @@ namespace PubSubProject.Subscriber
                 {
                     MessageBox.Show("Server is closed.");
                 }
+            }
+            else
+            {
+                MessageBox.Show("Select a topic from the list of subscribed topics.");
             }
         }
 

@@ -10,13 +10,13 @@ namespace PubSubProject.Publisher
 {
     public class PublisherController
     {
-        private WebSocket ws;
+        private WebSocket webSocket;
         private bool serverClosed = false;
 
         public PublisherController(string ip)
         {
-            ws = new WebSocket("ws://" + ip + "/BrokerController");
-            ws.OnMessage += (sender, e) =>
+            webSocket = new WebSocket("ws://" + ip + "/BrokerController");
+            webSocket.OnMessage += (sender, e) =>
             {
                 Message message = JsonConvert.DeserializeObject<Message>(e.Data);
                 string type = message.getType();
@@ -26,7 +26,7 @@ namespace PubSubProject.Publisher
                 }
             };
 
-            ws.Connect();
+            webSocket.Connect();
             sendClientType();
         }
 
@@ -35,7 +35,7 @@ namespace PubSubProject.Publisher
             if (serverClosed == false)
             {
                 Message newMessage = new Message("newPublisher");
-                ws.Send(JsonConvert.SerializeObject(newMessage));
+                webSocket.Send(JsonConvert.SerializeObject(newMessage));
             }
         }
 
@@ -45,7 +45,7 @@ namespace PubSubProject.Publisher
             {
                 Message newMessage = new Message("newTopic");
                 newMessage.setTopicName(topicName);
-                ws.Send(JsonConvert.SerializeObject(newMessage));
+                webSocket.Send(JsonConvert.SerializeObject(newMessage));
                 return true;
             }
             else
@@ -60,7 +60,7 @@ namespace PubSubProject.Publisher
             {
                 Post newPost = new Post(topicName, topicMessage, dateTime);
                 Message newMessage = new Message("newPost", newPost);
-                ws.Send(JsonConvert.SerializeObject(newMessage));
+                webSocket.Send(JsonConvert.SerializeObject(newMessage));
                 return true;
             }
             else
@@ -74,7 +74,7 @@ namespace PubSubProject.Publisher
             if (serverClosed == false)
             {
                 Message newMessage = new Message("deleteTopic", topicName);
-                ws.Send(JsonConvert.SerializeObject(newMessage));
+                webSocket.Send(JsonConvert.SerializeObject(newMessage));
                 return true;
             }
             else
@@ -88,7 +88,7 @@ namespace PubSubProject.Publisher
             // this if/else safely handles the closing of the form if the server has already been closed
             if (serverClosed == false)
             {
-                ws.Close();
+                webSocket.Close();
                 return true;
             }
             else

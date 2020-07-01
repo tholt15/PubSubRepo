@@ -36,6 +36,10 @@ namespace PubSubProject.Publisher
                     MessageBox.Show("Server is closed.");
                 }
             }
+            else
+            {
+                MessageBox.Show("Please enter a valid topic name.");
+            }
         }
 
         private void uxDeleteTopic_Click(object sender, EventArgs e)
@@ -53,6 +57,10 @@ namespace PubSubProject.Publisher
                 {
                     MessageBox.Show("Server is closed.");
                 }
+            }
+            else
+            {
+                MessageBox.Show("Select a topic from the dropdown list.");
             }
         }
 
