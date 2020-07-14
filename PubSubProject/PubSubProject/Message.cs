@@ -1,66 +1,52 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace PubSubProject
-{
-    public class Message
-    {
-        [JsonProperty]
-        public string type;
+namespace PubSubProject {
+	public class Message {
+		public enum MessageType {
+			NewPublisher,
+			NewSubscriber,
+			NewTopic,
+			DeleteTopic,
+			NewPost,
+			Unsubscribe,
+			Subscribe,
+			ServerClosed
+		}
 
-        [JsonProperty]
-        public Post post;
+		// These fields can be made properties so that you can get rid of the getters and setters. This is something specific to C#
 
-        [JsonProperty]
-        public string topicName;
+		/* 
+		 * Strings are bad to switch on because it's very easy to accidentally spell something wrong. Better to use an enum so the compiler can make sure the type is always valid.
+		 * The other otption, besides an enum, would be a static class (struct) with a few readonly properties that contain the strings you want to handle
+		 */
+		[JsonProperty]
+		public MessageType Type { get; }
 
-        public Message(string type)
-        {
-            this.type = type;
-        }
+		[JsonProperty]
+		public Post Post { get; }
 
-        public Message(string type, Post post)
-        {
-            this.type = type;
-            this.post = post;
-        }
+		[JsonProperty]
+		public string TopicName { get; set; }
 
-        public Message(string type, string topicName)
-        {
-            this.type = type;
-            this.topicName = topicName;
-        }
+		public Message( MessageType type ) {
+			Type = type;
+		}
 
-        [JsonConstructor]
-        public Message(string type, Post post, string topicName)
-        {
-            this.type = type;
-            this.post = post;
-            this.topicName = topicName;
-        }
+		public Message( MessageType type, Post post ) {
+			Type = type;
+			Post = post;
+		}
 
-        public Post getPost()
-        {
-            return post;
-        }
+		public Message( MessageType type, string topicName ) {
+			Type = type;
+			TopicName = topicName;
+		}
 
-        public string getType()
-        {
-            return type;
-        }
-
-        public void setTopicName(string name)
-        {
-            topicName = name;
-        }
-
-        public string getTopicName()
-        {
-            return topicName;
-        }
-    }
+		[JsonConstructor]
+		public Message( MessageType type, Post post, string topicName ) {
+			Type = type;
+			Post = post;
+			TopicName = topicName;
+		}
+	}
 }

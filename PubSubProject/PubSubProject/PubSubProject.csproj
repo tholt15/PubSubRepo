@@ -9,9 +9,11 @@
     <RootNamespace>PubSubProject</RootNamespace>
     <AssemblyName>PubSubProject</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <LangVersion>8.0</LangVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -61,6 +63,7 @@
       <DependentUpon>BrokerGUI.cs</DependentUpon>
     </Compile>
     <Compile Include="Broker\BrokerGUIDelegateWrapper.cs" />
+    <Compile Include="ControllerUtilities.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Post.cs" />
     <Compile Include="Program.cs" />
@@ -91,6 +94,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Publisher\PublisherGUI.resx">
       <DependentUpon>PublisherGUI.cs</DependentUpon>

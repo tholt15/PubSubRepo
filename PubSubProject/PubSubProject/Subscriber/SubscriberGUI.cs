@@ -77,9 +77,9 @@ namespace PubSubProject.Subscriber
         public void newPost(Post post)
         {
             this.Invoke(new Action(() => {
-                string topic = post.getTopic();
-                string message = post.getMessage();
-                string time = post.getDateTime();
+                string topic = post.Topic;
+                string message = post.Message;
+                string time = post.DateCreated;
                 int rowId = uxPostHistoryGrid.Rows.Add();
                 DataGridViewRow row = uxPostHistoryGrid.Rows[rowId];
                 row.Cells["topicNameColumn"].Value = topic;
