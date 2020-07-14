@@ -1,44 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace PubSubProject
 {
-    public class Post
-    {
-        [JsonProperty]
-        private string topic;
+	public class Post
+	{
+		[JsonProperty]
+		public string Topic { get; }	// These fields can be made properties, that way you can get rid of the getters. This is specific to C#
 
-        [JsonProperty]
-        private string message;
+		[JsonProperty]
+		public string Message { get; }
 
-        [JsonProperty]
-        private string dateCreated;
+		[JsonProperty]
+		public string DateCreated { get; }
 
-        [JsonConstructor]
-        public Post(string topic, string message, string dateAndTime)
-        {
-            this.topic = topic;
-            this.message = message;
-            this.dateCreated = dateAndTime;
-        }
-
-        public string getTopic()
-        {
-            return topic;
-        }
-
-        public string getMessage()
-        {
-            return message;
-        }
-
-        public string getDateTime()
-        {
-            return dateCreated;
-        }
-    }
+		[JsonConstructor]
+		public Post(string topic, string message, string dateAndTime)
+		{
+			Topic = topic;
+			Message = message;
+			DateCreated = dateAndTime;
+		}
+	}
 }

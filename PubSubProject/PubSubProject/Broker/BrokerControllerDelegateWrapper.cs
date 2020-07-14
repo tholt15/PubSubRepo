@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PubSubProject.Broker;
+﻿using PubSubProject.Broker;
 
 namespace PubSubProject
 {
@@ -18,10 +13,5 @@ namespace PubSubProject
         public newConnection newConnect { get; set; }
         public newPost newPost { get; set; }
         public subscribedToTopic subbedToTopic { get; set; }
-
-        public BrokerControllerDelegateWrapper()
-        {
-
-        }
     }
 }
